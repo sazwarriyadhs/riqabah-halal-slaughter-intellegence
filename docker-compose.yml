@@ -1,0 +1,51 @@
+name: riqabah
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: riqabah-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT:-15442}:5432"
+    volumes:
+      - riqabah_postgres_data:/var/lib/postgresql/data
+    networks:
+      - riqabah-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    container_name: riqabah-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6387}:6379"
+    volumes:
+      - riqabah_redis_data:/data
+    networks:
+      - riqabah-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+networks:
+  riqabah-network:
+    name: riqabah-network
+    driver: bridge
+
+volumes:
+  riqabah_postgres_data:
+    name: riqabah_postgres_data
+  riqabah_redis_data:
+    name: riqabah_redis_data

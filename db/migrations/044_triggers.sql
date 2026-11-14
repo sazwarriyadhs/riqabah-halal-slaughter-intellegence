@@ -1,0 +1,14 @@
+CREATE TRIGGER trg_users_updated_at BEFORE UPDATE ON app.users FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_org_updated_at BEFORE UPDATE ON app.organisations FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_facilities_updated_at BEFORE UPDATE ON app.facilities FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_premises_updated_at BEFORE UPDATE ON app.premises FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_programmes_updated_at BEFORE UPDATE ON app.halal_programmes FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_personnel_updated_at BEFORE UPDATE ON app.halal_personnel FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_batches_updated_at BEFORE UPDATE ON app.animal_batches FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_schedules_updated_at BEFORE UPDATE ON app.slaughter_schedules FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_carcasses_updated_at BEFORE UPDATE ON app.carcasses FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_products_updated_at BEFORE UPDATE ON app.products FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_meat_batches_updated_at BEFORE UPDATE ON app.meat_batches FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_documents_updated_at BEFORE UPDATE ON app.documents FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_export_consignment_updated_at BEFORE UPDATE ON app.export_consignments FOR EACH ROW EXECUTE FUNCTION app.set_updated_at();
+CREATE TRIGGER trg_carcass_weight BEFORE INSERT OR UPDATE ON app.carcasses FOR EACH ROW EXECUTE FUNCTION app.assert_positive_weight();
